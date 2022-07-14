@@ -1,0 +1,12 @@
+kafka:
+  client:
+    clientId: computational-app
+    brokers:
+      - localhost:9092
+  consumer:
+    groupId: computational-app-consumer
+
+app:
+  argon2:
+    memoryCost: 65536
+    hashLength: 50

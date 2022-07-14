@@ -1,0 +1,10 @@
+kafka:
+  client:
+    clientId: tutorial-kafka-big-computation
+    brokers:
+      - localhost:9092
+  consumer:
+    groupId: tutorial-kafka-big-computation-consumer
+
+app:
+  port: 3000

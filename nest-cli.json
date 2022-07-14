@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/tutoral-kafka-big-computation/src",
+  "monorepo": true,
+  "root": "apps/tutoral-kafka-big-computation",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/tutoral-kafka-big-computation/tsconfig.app.json",
+    "assets": [
+      {
+        "include": "../config/*.yml",
+        "outDir": "./dist/config"
+      }
+    ]
+  },
+  "projects": {
+    "tutoral-kafka-big-computation": {
+      "type": "application",
+      "root": "apps/tutoral-kafka-big-computation",
+      "entryFile": "main",
+      "sourceRoot": "apps/tutoral-kafka-big-computation/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/tutoral-kafka-big-computation/tsconfig.app.json"
+      }
+    },
+    "computational-app": {
+      "type": "application",
+      "root": "apps/computational-app",
+      "entryFile": "main",
+      "sourceRoot": "apps/computational-app/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/computational-app/tsconfig.app.json"
+      }
+    },
+    "shared": {
+      "type": "library",
+      "root": "libs/shared",
+      "entryFile": "index",
+      "sourceRoot": "libs/shared/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/shared/tsconfig.lib.json"
+      }
+    }
+  }
+}
