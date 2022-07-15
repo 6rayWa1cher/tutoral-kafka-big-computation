@@ -8,5 +8,5 @@ kafka:
 
 app:
   argon2:
-    memoryCost: 65536
+    memoryCost: 32768
     hashLength: 50
