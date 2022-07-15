@@ -110,8 +110,10 @@ services:
       - kafka0
     command: "bash -c 'echo Waiting for Kafka to be ready... && \
                cub kafka-ready -b kafka0:29092 1 30 && \
-               kafka-topics --create --topic auth.gen-hash --partitions 2 --replication-factor 1 --if-not-exists --zookeeper zookeeper0:2181 && \
-               kafka-topics --create --topic auth.compare-hash --partitions 2 --replication-factor 1 --if-not-exists --zookeeper zookeeper0:2181'"
+               kafka-topics --create --topic auth.gen-hash --partitions 6 --replication-factor 1 --if-not-exists --zookeeper zookeeper0:2181 && \
+               kafka-topics --create --topic auth.gen-hash.reply --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper0:2181 && \
+               kafka-topics --create --topic auth.compare-hash --partitions 6 --replication-factor 1 --if-not-exists --zookeeper zookeeper0:2181 && \
+               kafka-topics --create --topic auth.compare-hash.reply --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper0:2181'"
     networks:
       - tkbc-net
 

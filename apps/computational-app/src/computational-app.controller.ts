@@ -1,6 +1,8 @@
 import {
+  ClassSerializerInterceptor,
   Controller,
   UseFilters,
+  UseInterceptors,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -13,22 +15,28 @@ import {
 } from '@app/shared/dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { RpcBadRequestFilter } from './filter';
+import { AUTH_COMPARE_HASH_TOPIC, AUTH_GEN_HASH_TOPIC } from '@app/shared';
 
 @Controller()
-@UsePipes(ValidationPipe)
+@UsePipes(
+  new ValidationPipe({
+    whitelist: true,
+  }),
+)
+@UseInterceptors(ClassSerializerInterceptor)
 @UseFilters(RpcBadRequestFilter)
 export class ComputationalAppController {
   constructor(
     private readonly computationalAppService: ComputationalAppService,
   ) {}
 
-  @MessagePattern('auth.gen-hash')
+  @MessagePattern(AUTH_GEN_HASH_TOPIC)
   async generateHash(@Payload() dto: PasswordDto): Promise<HashDto> {
     const hash = await this.computationalAppService.hashPassword(dto.password);
     return new HashDto({ hash });
   }
 
-  @MessagePattern('auth.compare-hash')
+  @MessagePattern(AUTH_COMPARE_HASH_TOPIC)
   async compareHash(
     @Payload() dto: ValidationDto,
   ): Promise<ValidationResultDto> {
